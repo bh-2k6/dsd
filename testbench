@@ -1,0 +1,42 @@
+module VENDING_MACHINE_TB;
+// Inputs
+reg [1:0] coin;
+reg clk;
+reg rst;
+// Outputs
+wire out;
+// Instantiate the Unit Under Test (UUT)
+VENDING_MACHINE uut (
+.out(out),
+.coin(coin),
+.clk(clk),
+.rst(rst));
+initial clk=1;
+always #100 clk = ~clk;
+initial begin
+//CASE:1 5+5+5=15
+coin = 0; rst = 1; #200;
+coin = 1; rst = 0; #200;
+coin = 1; rst = 0; #200;
+coin = 1; rst = 0; #200;
+//CASE:2 5+10=15
+coin = 0; rst = 1; #200;
+coin = 1; rst = 0; #200;
+coin = 2; rst = 0; #200;
+//CASE:3 10+5=15
+coin = 0; rst = 1; #200;
+coin = 2; rst = 0; #200;
+coin = 1; rst = 0; #200;
+//CASE:4 5+10=15 No change
+coin = 1; rst = 1; #200;
+coin = 1; rst = 0; #200;
+coin = 3; rst = 0; #200;
+//CASE:5 15=15
+coin = 0; rst = 1; #200;
+coin = 3; rst = 0; #200;
+//CASE:6 10+15=15 No change
+coin = 0; rst = 1; #200;
+coin = 2; rst = 0; #200;
+coin = 3; rst = 0; #200;
+end
+endmodule
